@@ -1,4 +1,5 @@
 const express = require("express");
+require('dotenv').config();
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 const path = require('path');
@@ -8,7 +9,8 @@ const userRoutes = require('./routes/user');
 
 
 //Connection à la base de données
-mongoose.connect("mongodb+srv://Jessy:Gojeki14@cluster0.iqimemb.mongodb.net/?retryWrites=true&w=majority",
+const userDataBase = process.env.USER_DATA_BASE;
+mongoose.connect(`mongodb+srv://${userDataBase}@cluster0.iqimemb.mongodb.net/?retryWrites=true&w=majority`,
     { useNewUrlParser: true, 
       useUnifiedTopology: true })
 .then(() => console.log("Connexion à MongoDB réussie !"))
@@ -32,7 +34,7 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use('api/books', bookRoutes);
+app.use('/api/books', bookRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
