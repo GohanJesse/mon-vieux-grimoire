@@ -10,7 +10,9 @@ const userRoutes = require('./routes/user');
 
 //Connection à la base de données
 const userDataBase = process.env.USER_DATA_BASE;
-mongoose.connect(`mongodb+srv://${userDataBase}@cluster0.iqimemb.mongodb.net/?retryWrites=true&w=majority`,
+const hostDataBase = process.env.HOST_DATA_BASE;
+
+mongoose.connect(`mongodb+srv://${userDataBase}${hostDataBase}.mongodb.net/?retryWrites=true&w=majority`,
     { useNewUrlParser: true, 
       useUnifiedTopology: true })
 .then(() => console.log("Connexion à MongoDB réussie !"))
